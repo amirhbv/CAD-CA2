@@ -23,6 +23,7 @@
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/encoder.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/memory.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/MUX3Dto1.v
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/permute.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/register.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/revaluate.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/rotate.v
