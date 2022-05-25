@@ -56,18 +56,18 @@ module Datapath(
 
     wire start_permute, count_permute, write_permute, done_permute;
     wire [`NUM_CELLS - 1:0] permute_output;
-    // Permute permute(
-    //     .clk(clk),
-    //     .rst(rst),
-    //     .data_in(rotate_output),
+    Permute permute(
+        .clk(clk),
+        .rst(rst),
+        .data_in(rotate_output),
 
-    //     .start(start_permute),
-    //     .count(count_permute),
-    //     .write(write_permute),
+        .start(start_permute),
+        .count(count_permute),
+        .write(write_permute),
 
-    //     .done(done_permute),
-    //     .data_out(permute_output)
-    // );
+        .done(done_permute),
+        .data_out(permute_output)
+    );
 
     wire start_revaluate, count_revaluate, write_revaluate, done_revaluate;
     wire [`NUM_CELLS - 1:0] revaluate_output;
