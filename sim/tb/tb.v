@@ -71,16 +71,15 @@ module TB();
         {`NUM_ROW'b10100, `NUM_ROW'b00010, `NUM_ROW'b00000, `NUM_ROW'b10101, `NUM_ROW'b00011}
     };
 
-	wire done = 0;
+	wire done;
 	wire [`NUM_CELLS - 1:0] output_data;
 
     always #(20) clk = ~clk;
 
-    Encoder uut(
+    Encoder enc(
         .clk(clk),
         .rst(rst),
         .start(start),
-
 		.data_in(input_data),
 
 		.done(done),
@@ -96,6 +95,7 @@ module TB();
         start = 1;
         #50
         start = 0;
+        #50
 
         i = 0;
         while (done != 1) begin

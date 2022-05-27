@@ -9,16 +9,13 @@ module Memory(
 	input [`LEN_ADDRESS - 1:0] address_in,
 	input data_in,
 
-	output [`NUM_CELLS - 1:0] data_out
+	output reg [`NUM_CELLS - 1:0] data_out
 );
-	reg [`LEN_DATA - 1:0] data;
-
-	assign data_out = data;
-
-	always@(negedge clk) begin
-		if(mem_write) begin
-			data[address_in] <= data_in;
-		end
+	always@(negedge clk, rst) begin
+		if(rst)
+			data_out <= 0;
+		else if(mem_write)
+			data_out[address_in] <= data_in;
 	end
 
 endmodule

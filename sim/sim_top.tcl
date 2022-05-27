@@ -16,16 +16,20 @@
 #	vlog 	+acc -incr -source  +define+SIM 	$hdl_path/verilog_file_name.v
 #	vlog 	+acc -incr -source  +define+SIM 	$inc_path/implementation_option.vh
 
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/add_rc.v
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/col_parity_dp.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/col_parity.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/controller.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/counter.v
-	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/datapath.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/encoder.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/memory.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/MUX3Dto1.v
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/permute_dp.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/permute.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/register.v
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/revaluate_dp.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/revaluate.v
+	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/rotate_dp.v
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	./$hdl_path/rotate.v
 
 	vlog 	+acc -incr -source  +incdir+$inc_path +define+SIM 	$TB

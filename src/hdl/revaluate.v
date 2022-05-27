@@ -4,88 +4,34 @@ module Revaluate(
     input clk,
     input rst,
     input start,
-    input [`NUM_CELLS - 1:0] data_in,
 
-    input count,
-    input write,
+    input [`NUM_CELLS - 1:0] data_in,
 
     output done,
     output [`NUM_CELLS - 1:0] data_out
 );
-    wire [2:0] i;
-    wire i_overflow;
-    Counter #(.WORD_LENGTH(3)) i_counter(
+    wire controller_reset_signal, controller_write_signal, controller_count_signal;
+    wire datapath_done_signal;
+    RevaluateDP revaluate(
         .clk(clk),
-        .rst(rst),
-        .en(count),
-        .max(4'd`NUM_ROW),
+        .rst(controller_reset_signal),
+        .data_in(data_in),
 
-        .overflow(i_overflow),
-        .out(i)
-    );
+        .count(controller_count_signal),
+        .write(controller_write_signal),
 
-    wire [2:0] j;
-    wire j_overflow;
-    Counter #(.WORD_LENGTH(3)) j_counter(
-        .clk(clk),
-        .rst(rst),
-        .en(i_overflow),
-        .max(4'd`NUM_COLUMN),
-
-        .overflow(j_overflow),
-        .out(j)
-    );
-
-    wire [5:0] k;
-    Counter #(.WORD_LENGTH(6)) k_counter(
-        .clk(clk),
-        .rst(rst),
-        .en(j_overflow),
-        .max(7'd`NUM_PAGE),
-
-        .overflow(done),
-        .out(k)
-    );
-
-    wire current_cell, next_cell, next_next_cell;
-    MUX3Dto1 cell_mux(
-        .mat(data_in),
-        .i(i),
-        .j(j),
-        .k(k),
-
-        .out(current_cell)
-    );
-
-    wire [2:0] ii = (i + 1) % `NUM_ROW;
-    MUX3Dto1 next_cell_mux(
-        .mat(data_in),
-        .i(ii),
-        .j(j),
-        .k(k),
-
-        .out(next_cell)
-    );
-
-    wire [2:0] iii = (i + 2) % `NUM_ROW;
-    MUX3Dto1 next_next_cell_mux(
-        .mat(data_in),
-        .i(iii),
-        .j(j),
-        .k(k),
-
-        .out(next_next_cell)
-    );
-
-    wire [`LEN_ADDRESS - 1:0] address_in = k * `NUM_ROW * `NUM_COLUMN + j * `NUM_ROW + i;
-    Memory memory(
-        .clk(clk),
-        .rst(rst),
-        .mem_write(write),
-        .address_in(address_in),
-        .data_in(current_cell ^ (~next_cell & next_next_cell)),
-
+        .done(datapath_done_signal),
         .data_out(data_out)
     );
+    Controller controller(
+        .clk(clk),
+        .rst(rst),
+        .start(start),
+        .datapath_done(datapath_done_signal),
 
+        .dataset_reset(controller_reset_signal),
+        .done(done),
+        .write(controller_write_signal),
+        .count(controller_count_signal)
+    );
 endmodule
